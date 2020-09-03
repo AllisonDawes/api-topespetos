@@ -5,5 +5,8 @@ build/
 temp/
 .env
 
+yarn.lock
+yarn-error.log
+
 tmp/*
 !tmp/.gitkeep
