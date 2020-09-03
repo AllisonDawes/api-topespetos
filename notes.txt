@@ -1,0 +1,81 @@
+instalação de libs e guia de desenvolvimento:
+
+-criar pasta do projeto
+
+-rodar comando (cria o arquivo package.json):
+yarn init -y
+
+-rodar o comando (instala as depedências da biblioteca express):
+yarn add express
+
+-rodar comando (instala as dependências do typescript):
+yarn add -D typescript
+
+-rodar comando (cria o arquivo de configuração tsconfig.json):
+yarn tsc --init
+
+-criar pasta src com arquivo server.ts
+
+-no arquivo de configuração tsconfig.json, procurar a configuração rootDir: "./"
+e deixa-la desta forma: rootDir: "./src"
+
+-no arquivo de configuração tsconfig.json, procurar a configuração outDir: "./"
+e deixa-la desta forma: outDir: "./dist"
+
+-adicionar tipagem a biblioteca express:
+yarn add typescript @types/express -D
+
+-lib para auxiliar no desenvolvimento:
+yarn add ts-node-dev -D
+
+configurar scripts no arquivo package.json
+
+-instalação e configuração do eslint:
+yarn add eslint -D
+yarn eslint --init
+yarn add -D eslint-import-resolver-typescript
+
+-instalação do prettier:
+yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+
+-fazer configurações do prettier no arquivo .eslint.json
+
+-criar aquivo prettier.config.js e configurar.
+-criar arquivo .eslintignore e configurar.
+
+-instalação da lib date-fns para manipulação de datas:
+yarn add date-fns
+
+-criação de container docker:
+sudo docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+
+-comando para verificar se porta 5432 está oculpada por outra aplicação:
+lsof -i :5432
+
+-instalação de typeorm e pg:
+yarn add typeorm reflect-metadata pg
+
+--reflect-metadata: uma dependência do typeorm, importar no arquivo server.ts bem no início.
+
+-criar arquivo ormconfig.json na raiz do projeto e fazer configuração.
+-criar pasta database com arquivo index.ts dentro.
+-configurar script typeorm no arquivo package.json
+
+-comando para criar migration:
+yarn typeorm migration:create -n CreateAppointments
+
+-comando para gerar tabela no banco de dados após programar migration:
+yarn typeorm migration:run
+
+-proximo passo, editar o arquivo de models "Appointment", para que possa  acessar
+o banco de dados, importando de typeorm a função Entity, e logo apó indo no arquivo
+tsconfig.json e abilitando duas linhas do códido:
+
+"experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
+"emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
+
+-ainda no arquivo tsconfig.json, abilitar a linha de código como true:
+"strictPropertyInitialization": false /* Enable strict checking of property initialization in classes. */,
+
+-instalar o pacote jsonwebtoken para gerar o token de autenticação:
+yarn add jsonwebtoken
