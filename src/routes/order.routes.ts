@@ -6,9 +6,12 @@ import { classToClass } from 'class-transformer';
 
 import CreateOrdersDeliveryService from '../services/CreateOrdersDeliveryService';
 import FindOrdersDeliveryService from '../services/FindOrdersDeliveryService';
-import Order from '../models/Order';
+import CanceledOrderService from '../services/CanceledOrderService';
+import UpdateOrderAcceptedService from '../services/UpdateOrderAcceptedService';
 
 const orderRouter = Router();
+
+//orderRouter.use(ensureAuthenticated);
 
 orderRouter.get('/find_orders/:date_order', async (request, response) => {
   const { date_order } = request.params;
@@ -40,6 +43,36 @@ orderRouter.post('/', async (request, response) => {
   });
 
   return response.json(classToClass(ordersDelivery));
+});
+
+orderRouter.put('/', async (request, response) => {
+  const user_id = request.user.id;
+  const { order_id, order_accepted } = request.body;
+
+  const updateOrderAccepted = new UpdateOrderAcceptedService();
+
+  const orderAccepted = await updateOrderAccepted.execute({
+    user_id,
+    order_id,
+    order_accepted,
+  });
+
+  return response.json(orderAccepted);
+});
+
+orderRouter.patch('/', async (request, response) => {
+  const user_id = request.user.id;
+  const { order_id, canceled } = request.body;
+
+  const canceledOrderService = new CanceledOrderService();
+
+  const canceledOrder = await canceledOrderService.execute({
+    user_id,
+    order_id,
+    canceled,
+  });
+
+  return response.json(canceledOrder);
 });
 
 export default orderRouter;

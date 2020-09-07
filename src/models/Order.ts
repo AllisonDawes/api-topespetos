@@ -36,7 +36,7 @@ class Request {
   date: Date;
 
   @Column()
-  order_accepted: string;
+  order_accepted: boolean;
 
   @Column()
   order_status: string;
